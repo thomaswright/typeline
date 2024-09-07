@@ -454,7 +454,7 @@ function App(props) {
                                 JsxRuntime.jsx("a", {
                                       children: "Thomas Wright",
                                       className: "text-green-400 font-bold",
-                                      href: "https://github.com/thomaswright/type-line"
+                                      href: "https://github.com/thomaswright/typeline"
                                     })
                               ],
                               className: "bg-plain-900 text-white text-xs p-4"

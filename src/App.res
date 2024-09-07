@@ -419,7 +419,7 @@ let make = () => {
       ->React.array}
       <div className="bg-plain-900 text-white text-xs p-4">
         <span> {"Made by "->React.string} </span>
-        <a className="text-green-400 font-bold" href={"https://github.com/thomaswright/type-line"}>
+        <a className="text-green-400 font-bold" href={"https://github.com/thomaswright/typeline"}>
           {"Thomas Wright"->React.string}
         </a>
       </div>
