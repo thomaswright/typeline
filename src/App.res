@@ -6,6 +6,9 @@ type classification =
   | Didone
   | Transitional
   | OldStyle
+  | Display
+  | Script
+
 type year = int
 type link = string
 type person = string
@@ -19,6 +22,20 @@ type typeface = {
 }
 
 let typefaces = [
+  {
+    name: "Comic Sans",
+    sampleImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/ComicSansSpec3.svg/1733px-ComicSansSpec3.svg.png",
+    wikipediaPage: "https://en.wikipedia.org/wiki/Comic_Sans",
+    released: 1994,
+    classification: Script,
+  },
+  {
+    name: "Curlz",
+    sampleImg: "https://upload.wikimedia.org/wikipedia/commons/4/46/CurlzSpec.svg",
+    wikipediaPage: "https://en.wikipedia.org/wiki/Curlz",
+    released: 1995,
+    classification: Display,
+  },
   {
     name: "Courier New",
     sampleImg: "https://upload.wikimedia.org/wikipedia/commons/3/36/IBMCourier.svg",
@@ -143,7 +160,7 @@ let typefaces = [
     sampleImg: "https://upload.wikimedia.org/wikipedia/commons/2/2b/ImpactSP.svg",
     wikipediaPage: "https://en.wikipedia.org/wiki/Impact_(typeface)",
     released: 1965,
-    classification: Geometric,
+    classification: Grotesque,
   },
   {
     name: "Metro",
@@ -168,7 +185,7 @@ let typefaces = [
   },
   {
     name: "Avenir",
-    sampleImg: "",
+    sampleImg: "https://upload.wikimedia.org/wikipedia/commons/0/07/AvenirSP.png",
     wikipediaPage: "https://en.wikipedia.org/wiki/Avenir_(typeface)",
     released: 1988,
     classification: Geometric,
@@ -271,35 +288,128 @@ let typefaces = [
     released: 2005,
     classification: Transitional,
   },
+]->Array.toSorted((a, b) => (b.released - a.released)->Int.toFloat)
+
+let classificationString = c =>
+  switch c {
+  | Monospaced => "Monospaced"
+  | Humanist => "Humanist"
+  | Grotesque => "Grotesque"
+  | Geometric => "Geometric"
+  | Didone => "Didone"
+  | Transitional => "Transitional"
+  | OldStyle => "Old Style"
+  | Display => "Display"
+  | Script => "Script"
+  }
+
+let classificationUrl = c =>
+  switch c {
+  | Monospaced => "https://en.wikipedia.org/wiki/Monospaced_font"
+  | Humanist => "https://en.wikipedia.org/wiki/Sans-serif#Humanist"
+  | Grotesque => "https://en.wikipedia.org/wiki/Sans-serif#Grotesque"
+  | Geometric => "https://en.wikipedia.org/wiki/Sans-serif#Geometric"
+  | Didone => "https://en.wikipedia.org/wiki/Didone_(typography)"
+  | Transitional => "https://en.wikipedia.org/wiki/Serif#Transitional"
+  | OldStyle => "https://en.wikipedia.org/wiki/Serif#Old-style"
+  | Display => "https://en.wikipedia.org/wiki/Display_typeface"
+  | Script => "https://en.wikipedia.org/wiki/Script_typeface"
+  }
+
+type timePeriod =
+  | T_2000
+  | T_1967_T1999
+  | T_1934_T1966
+  | T_1900_1933
+  | T_1800_1899
+  | T_Pre1800
+
+let allTimePeriods = [T_2000, T_1967_T1999, T_1934_T1966, T_1900_1933, T_1800_1899, T_Pre1800]
+let getTimePeriod = y =>
+  switch y {
+  | y if y >= 2000 => T_2000
+  | y if y >= 1967 => T_1967_T1999
+  | y if y >= 1934 => T_1934_T1966
+  | y if y >= 1900 => T_1900_1933
+  | y if y >= 1800 => T_1800_1899
+  | _ => T_Pre1800
+  }
+
+let allClassifications = [
+  Monospaced,
+  Humanist,
+  Grotesque,
+  Geometric,
+  Didone,
+  Transitional,
+  OldStyle,
+  Display,
+  Script,
 ]
 
-let xPosition = classification =>
-  switch classification {
-  | Monospaced => 0
-  | Humanist => 1
-  | Grotesque => 2
-  | Geometric => 3
-  | Didone => 4
-  | Transitional => 5
-  | OldStyle => 6
+let timePeriodString = t =>
+  switch t {
+  | T_2000 => "Post 2000"
+  | T_1900_1933 => "1900 - 1933"
+  | T_1934_T1966 => "1934 - 1966"
+  | T_1967_T1999 => "1967 - 1999"
+  | T_1800_1899 => "1800 - 1899"
+  | T_Pre1800 => "Pre 1800"
   }
 
 @react.component
 let make = () => {
-  let (count, setCount) = React.useState(() => 0)
-
-  <div className="p-6">
-    {typefaces
-    ->Array.map(typeface => {
-      <div
-        className="absolute border-2 border-black"
-        style={{
-          top: ((2024 - typeface.released) * 10)->Int.toString ++ "px",
-          left: (typeface.classification->xPosition * 120)->Int.toString ++ "px",
-        }}>
-        <img src={typeface.sampleImg} width={"100px"} />
-      </div>
-    })
-    ->React.array}
+  <div className="w-fit relative">
+    <div className="flex flex-row sticky top-0 bg-white border-b-2 border-slate-900">
+      <div className="w-32" />
+      {allClassifications
+      ->Array.mapWithIndex((classification, i) => {
+        <a
+          href={classification->classificationUrl}
+          className={[
+            "font-black w-32 py-2 flex flex-col items-center",
+            mod(i, 2) == 0 ? "bg-slate-200" : "",
+          ]->Array.join(" ")}>
+          {classification->classificationString->React.string}
+        </a>
+      })
+      ->React.array}
+    </div>
+    <div className="flex flex-col divide-y-2 divide-slate-900 ">
+      {allTimePeriods
+      ->Array.map(timePeriod => {
+        <div className="flex flex-row">
+          <div className="w-32 font-black px-2"> {timePeriod->timePeriodString->React.string} </div>
+          {allClassifications
+          ->Array.mapWithIndex((classification, i) => {
+            <div
+              className={[
+                "w-32 flex flex-col items-center py-1",
+                mod(i, 2) == 0 ? "bg-slate-100" : "",
+              ]->Array.join(" ")}>
+              {typefaces
+              ->Array.filter(
+                t => t.classification == classification && t.released->getTimePeriod == timePeriod,
+              )
+              ->Array.map(
+                t => {
+                  t.sampleImg == ""
+                    ? React.null
+                    : <a href={t.wikipediaPage} className="py-1">
+                        <img className="border border-black" src={t.sampleImg} width={"100px"} />
+                        <div className="text-xs font-bold">
+                          {t.released->Int.toString->React.string}
+                        </div>
+                      </a>
+                },
+              )
+              ->React.array}
+            </div>
+          })
+          ->React.array}
+        </div>
+      })
+      ->React.array}
+    </div>
   </div>
 }
