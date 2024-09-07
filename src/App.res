@@ -361,14 +361,17 @@ let timePeriodString = t =>
 let make = () => {
   <div className="w-fit relative">
     <div className="flex flex-row sticky top-0 bg-white border-b-2 border-slate-900">
-      <div className="w-32" />
+      <div
+        className="w-32 bg-slate-900 text-amber-500 underline flex flex-row items-center px-3 font-black text-xl italic">
+        {"Type-line"->React.string}
+      </div>
       {allClassifications
       ->Array.mapWithIndex((classification, i) => {
         <a
           href={classification->classificationUrl}
           className={[
-            "font-black w-32 py-2 flex flex-col items-center",
-            mod(i, 2) == 0 ? "bg-slate-200" : "",
+            "font-bold w-32 py-4 flex flex-col items-center text-white ",
+            mod(i, 2) == 0 ? "bg-slate-900" : "bg-slate-900",
           ]->Array.join(" ")}>
           {classification->classificationString->React.string}
         </a>
@@ -379,13 +382,15 @@ let make = () => {
       {allTimePeriods
       ->Array.map(timePeriod => {
         <div className="flex flex-row">
-          <div className="w-32 font-black px-2"> {timePeriod->timePeriodString->React.string} </div>
+          <div className="w-32 font-bold px-3 py-2 bg-slate-800 text-white">
+            {timePeriod->timePeriodString->React.string}
+          </div>
           {allClassifications
           ->Array.mapWithIndex((classification, i) => {
             <div
               className={[
-                "w-32 flex flex-col items-center py-1",
-                mod(i, 2) == 0 ? "bg-slate-100" : "",
+                "w-32 flex flex-col items-center py-2",
+                mod(i, 2) == 1 ? "bg-slate-100" : "bg-white",
               ]->Array.join(" ")}>
               {typefaces
               ->Array.filter(
@@ -410,6 +415,12 @@ let make = () => {
         </div>
       })
       ->React.array}
+      <div className="bg-slate-900 text-white text-xs p-4">
+        <span> {"Made by "->React.string} </span>
+        <a className="text-blue-400 font-bold" href={"https://github.com/thomaswright/type-line"}>
+          {"Thomas Wright"->React.string}
+        </a>
+      </div>
     </div>
   </div>
 }

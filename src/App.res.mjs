@@ -382,14 +382,15 @@ function App(props) {
                 JsxRuntime.jsxs("div", {
                       children: [
                         JsxRuntime.jsx("div", {
-                              className: "w-32"
+                              children: "Type-line",
+                              className: "w-32 bg-slate-900 text-amber-500 underline flex flex-row items-center px-3 font-black text-xl italic"
                             }),
                         allClassifications.map(function (classification, i) {
                               return JsxRuntime.jsx("a", {
                                           children: classificationString(classification),
                                           className: [
-                                              "font-black w-32 py-2 flex flex-col items-center",
-                                              i % 2 === 0 ? "bg-slate-200" : ""
+                                              "font-bold w-32 py-4 flex flex-col items-center text-white ",
+                                              "bg-slate-900"
                                             ].join(" "),
                                           href: classificationUrl(classification)
                                         });
@@ -397,53 +398,68 @@ function App(props) {
                       ],
                       className: "flex flex-row sticky top-0 bg-white border-b-2 border-slate-900"
                     }),
-                JsxRuntime.jsx("div", {
-                      children: allTimePeriods.map(function (timePeriod) {
-                            return JsxRuntime.jsxs("div", {
-                                        children: [
-                                          JsxRuntime.jsx("div", {
-                                                children: timePeriodString(timePeriod),
-                                                className: "w-32 font-black px-2"
-                                              }),
-                                          allClassifications.map(function (classification, i) {
-                                                return JsxRuntime.jsx("div", {
-                                                            children: typefaces.filter(function (t) {
-                                                                    if (t.classification === classification) {
-                                                                      return getTimePeriod(t.released) === timePeriod;
+                JsxRuntime.jsxs("div", {
+                      children: [
+                        allTimePeriods.map(function (timePeriod) {
+                              return JsxRuntime.jsxs("div", {
+                                          children: [
+                                            JsxRuntime.jsx("div", {
+                                                  children: timePeriodString(timePeriod),
+                                                  className: "w-32 font-bold px-3 py-2 bg-slate-800 text-white"
+                                                }),
+                                            allClassifications.map(function (classification, i) {
+                                                  return JsxRuntime.jsx("div", {
+                                                              children: typefaces.filter(function (t) {
+                                                                      if (t.classification === classification) {
+                                                                        return getTimePeriod(t.released) === timePeriod;
+                                                                      } else {
+                                                                        return false;
+                                                                      }
+                                                                    }).map(function (t) {
+                                                                    if (t.sampleImg === "") {
+                                                                      return null;
                                                                     } else {
-                                                                      return false;
+                                                                      return JsxRuntime.jsxs("a", {
+                                                                                  children: [
+                                                                                    JsxRuntime.jsx("img", {
+                                                                                          className: "border border-black",
+                                                                                          src: t.sampleImg,
+                                                                                          width: "100px"
+                                                                                        }),
+                                                                                    JsxRuntime.jsx("div", {
+                                                                                          children: t.released.toString(),
+                                                                                          className: "text-xs font-bold"
+                                                                                        })
+                                                                                  ],
+                                                                                  className: "py-1",
+                                                                                  href: t.wikipediaPage
+                                                                                });
                                                                     }
-                                                                  }).map(function (t) {
-                                                                  if (t.sampleImg === "") {
-                                                                    return null;
-                                                                  } else {
-                                                                    return JsxRuntime.jsxs("a", {
-                                                                                children: [
-                                                                                  JsxRuntime.jsx("img", {
-                                                                                        className: "border border-black",
-                                                                                        src: t.sampleImg,
-                                                                                        width: "100px"
-                                                                                      }),
-                                                                                  JsxRuntime.jsx("div", {
-                                                                                        children: t.released.toString(),
-                                                                                        className: "text-xs font-bold"
-                                                                                      })
-                                                                                ],
-                                                                                className: "py-1",
-                                                                                href: t.wikipediaPage
-                                                                              });
-                                                                  }
-                                                                }),
-                                                            className: [
-                                                                "w-32 flex flex-col items-center py-1",
-                                                                i % 2 === 0 ? "bg-slate-100" : ""
-                                                              ].join(" ")
-                                                          });
-                                              })
-                                        ],
-                                        className: "flex flex-row"
-                                      });
-                          }),
+                                                                  }),
+                                                              className: [
+                                                                  "w-32 flex flex-col items-center py-2",
+                                                                  i % 2 === 1 ? "bg-slate-100" : "bg-white"
+                                                                ].join(" ")
+                                                            });
+                                                })
+                                          ],
+                                          className: "flex flex-row"
+                                        });
+                            }),
+                        JsxRuntime.jsxs("div", {
+                              children: [
+                                JsxRuntime.jsx("span", {
+                                      children: "Made by "
+                                    }),
+                                JsxRuntime.jsx("a", {
+                                      children: "Thomas Wright",
+                                      className: "text-blue-400 font-bold",
+                                      href: "https://github.com/thomaswright/type-line"
+                                    })
+                              ],
+                              className: "bg-slate-900 text-white text-xs p-4"
+                            })
+                      ],
                       className: "flex flex-col divide-y-2 divide-slate-900 "
                     })
               ],
