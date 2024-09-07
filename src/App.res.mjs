@@ -382,21 +382,21 @@ function App(props) {
                 JsxRuntime.jsxs("div", {
                       children: [
                         JsxRuntime.jsx("div", {
-                              children: "Type-line",
-                              className: "w-32 bg-slate-900 text-amber-500 underline flex flex-row items-center px-3 font-black text-xl italic"
+                              children: "Typeline",
+                              className: "w-32 bg-plain-900 text-amber-500 underline flex flex-row items-center justify-center px-3 font-black text-xl italic"
                             }),
                         allClassifications.map(function (classification, i) {
                               return JsxRuntime.jsx("a", {
                                           children: classificationString(classification),
                                           className: [
                                               "font-bold w-32 py-4 flex flex-col items-center text-white ",
-                                              "bg-slate-900"
+                                              "bg-plain-900"
                                             ].join(" "),
                                           href: classificationUrl(classification)
                                         });
                             })
                       ],
-                      className: "flex flex-row sticky top-0 bg-white border-b-2 border-slate-900"
+                      className: "flex flex-row sticky top-0 bg-white border-b-2 border-plain-900"
                     }),
                 JsxRuntime.jsxs("div", {
                       children: [
@@ -405,7 +405,7 @@ function App(props) {
                                           children: [
                                             JsxRuntime.jsx("div", {
                                                   children: timePeriodString(timePeriod),
-                                                  className: "w-32 font-bold px-3 py-2 bg-slate-800 text-white"
+                                                  className: "w-32 font-bold px-3 py-2 bg-plain-800 text-white text-right"
                                                 }),
                                             allClassifications.map(function (classification, i) {
                                                   return JsxRuntime.jsx("div", {
@@ -422,7 +422,7 @@ function App(props) {
                                                                       return JsxRuntime.jsxs("a", {
                                                                                   children: [
                                                                                     JsxRuntime.jsx("img", {
-                                                                                          className: "border border-black",
+                                                                                          className: "border border-plain-900 ",
                                                                                           src: t.sampleImg,
                                                                                           width: "100px"
                                                                                         }),
@@ -438,7 +438,7 @@ function App(props) {
                                                                   }),
                                                               className: [
                                                                   "w-32 flex flex-col items-center py-2",
-                                                                  i % 2 === 1 ? "bg-slate-100" : "bg-white"
+                                                                  i % 2 === 1 ? "bg-plain-100" : "bg-white"
                                                                 ].join(" ")
                                                             });
                                                 })
@@ -453,17 +453,17 @@ function App(props) {
                                     }),
                                 JsxRuntime.jsx("a", {
                                       children: "Thomas Wright",
-                                      className: "text-blue-400 font-bold",
+                                      className: "text-green-400 font-bold",
                                       href: "https://github.com/thomaswright/type-line"
                                     })
                               ],
-                              className: "bg-slate-900 text-white text-xs p-4"
+                              className: "bg-plain-900 text-white text-xs p-4"
                             })
                       ],
-                      className: "flex flex-col divide-y-2 divide-slate-900 "
+                      className: "flex flex-col divide-y-2 divide-plain-900 "
                     })
               ],
-              className: "w-fit relative"
+              className: "w-fit"
             });
 }
 

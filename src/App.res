@@ -359,11 +359,11 @@ let timePeriodString = t =>
 
 @react.component
 let make = () => {
-  <div className="w-fit relative">
-    <div className="flex flex-row sticky top-0 bg-white border-b-2 border-slate-900">
+  <div className="w-fit">
+    <div className="flex flex-row sticky top-0 bg-white border-b-2 border-plain-900">
       <div
-        className="w-32 bg-slate-900 text-amber-500 underline flex flex-row items-center px-3 font-black text-xl italic">
-        {"Type-line"->React.string}
+        className="w-32 bg-plain-900 text-amber-500 underline flex flex-row items-center justify-center px-3 font-black text-xl italic">
+        {"Typeline"->React.string}
       </div>
       {allClassifications
       ->Array.mapWithIndex((classification, i) => {
@@ -371,18 +371,18 @@ let make = () => {
           href={classification->classificationUrl}
           className={[
             "font-bold w-32 py-4 flex flex-col items-center text-white ",
-            mod(i, 2) == 0 ? "bg-slate-900" : "bg-slate-900",
+            mod(i, 2) == 0 ? "bg-plain-900" : "bg-plain-900",
           ]->Array.join(" ")}>
           {classification->classificationString->React.string}
         </a>
       })
       ->React.array}
     </div>
-    <div className="flex flex-col divide-y-2 divide-slate-900 ">
+    <div className="flex flex-col divide-y-2 divide-plain-900 ">
       {allTimePeriods
       ->Array.map(timePeriod => {
         <div className="flex flex-row">
-          <div className="w-32 font-bold px-3 py-2 bg-slate-800 text-white">
+          <div className="w-32 font-bold px-3 py-2 bg-plain-800 text-white text-right">
             {timePeriod->timePeriodString->React.string}
           </div>
           {allClassifications
@@ -390,7 +390,7 @@ let make = () => {
             <div
               className={[
                 "w-32 flex flex-col items-center py-2",
-                mod(i, 2) == 1 ? "bg-slate-100" : "bg-white",
+                mod(i, 2) == 1 ? "bg-plain-100" : "bg-white",
               ]->Array.join(" ")}>
               {typefaces
               ->Array.filter(
@@ -401,7 +401,9 @@ let make = () => {
                   t.sampleImg == ""
                     ? React.null
                     : <a href={t.wikipediaPage} className="py-1">
-                        <img className="border border-black" src={t.sampleImg} width={"100px"} />
+                        <img
+                          className="border border-plain-900 " src={t.sampleImg} width={"100px"}
+                        />
                         <div className="text-xs font-bold">
                           {t.released->Int.toString->React.string}
                         </div>
@@ -415,9 +417,9 @@ let make = () => {
         </div>
       })
       ->React.array}
-      <div className="bg-slate-900 text-white text-xs p-4">
+      <div className="bg-plain-900 text-white text-xs p-4">
         <span> {"Made by "->React.string} </span>
-        <a className="text-blue-400 font-bold" href={"https://github.com/thomaswright/type-line"}>
+        <a className="text-green-400 font-bold" href={"https://github.com/thomaswright/type-line"}>
           {"Thomas Wright"->React.string}
         </a>
       </div>
