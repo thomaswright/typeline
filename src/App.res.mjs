@@ -449,7 +449,7 @@ function App(props) {
                         JsxRuntime.jsxs("div", {
                               children: [
                                 JsxRuntime.jsx("span", {
-                                      children: "Made by "
+                                      children: "By "
                                     }),
                                 JsxRuntime.jsx("a", {
                                       children: "Thomas Wright",
@@ -457,7 +457,7 @@ function App(props) {
                                       href: "https://github.com/thomaswright/typeline"
                                     })
                               ],
-                              className: "bg-plain-900 text-white text-xs p-4"
+                              className: "bg-plain-900 text-white text-xs p-6"
                             })
                       ],
                       className: "flex flex-col divide-y-2 divide-plain-900 "
