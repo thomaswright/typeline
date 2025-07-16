@@ -349,20 +349,20 @@ let allClassifications = [
 
 let timePeriodString = t =>
   switch t {
-  | T_2000 => "Post 2000"
+  | T_2000 => "2000s"
   | T_1900_1933 => "1900 - 1933"
   | T_1934_T1966 => "1934 - 1966"
   | T_1967_T1999 => "1967 - 1999"
-  | T_1800_1899 => "1800 - 1899"
+  | T_1800_1899 => "1800s"
   | T_Pre1800 => "Pre 1800"
   }
 
 @react.component
 let make = () => {
   <div className="w-fit">
-    <div className="flex flex-row sticky top-0 bg-white border-b-2 border-plain-900">
+    <div className="flex flex-row sticky top-0 bg-white border-b-2 border-slate-900">
       <div
-        className="w-32 bg-plain-900 text-amber-500 underline flex flex-row items-center justify-center px-3 font-black text-xl italic">
+        className="w-32 bg-slate-900 text-amber-500 underline flex flex-row items-center justify-center px-3 font-black text-xl italic">
         {"Typeline"->React.string}
       </div>
       {allClassifications
@@ -370,27 +370,28 @@ let make = () => {
         <a
           href={classification->classificationUrl}
           className={[
-            "font-bold w-32 py-4 flex flex-col items-center text-white ",
-            mod(i, 2) == 0 ? "bg-plain-900" : "bg-plain-900",
+            "font-bold w-32 py-4 flex flex-col items-center text-white bg-slate-900",
           ]->Array.join(" ")}>
           {classification->classificationString->React.string}
         </a>
       })
       ->React.array}
     </div>
-    <div className="flex flex-col divide-y-2 divide-plain-900 ">
+    <div className="flex flex-col divide-y-2 divide-slate-300 ">
       {allTimePeriods
       ->Array.map(timePeriod => {
         <div className="flex flex-row">
-          <div className="w-32 font-bold px-3 py-2 bg-plain-800 text-white text-right">
+          <div
+            className="w-32 font-black text-2xl px-3 py-2 bg-slate-100 text-slate-600 items-center justify-center flex flex-row"
+            style={{writingMode: "sideways-lr"}}>
             {timePeriod->timePeriodString->React.string}
           </div>
           {allClassifications
           ->Array.mapWithIndex((classification, i) => {
             <div
               className={[
-                "w-32 flex flex-col items-center py-2",
-                mod(i, 2) == 1 ? "bg-plain-100" : "bg-white",
+                "w-32 flex flex-col items-center py-2 bg-white border-r",
+                // mod(i, 2) == 1 ? "bg-slate-100" : "bg-white",
               ]->Array.join(" ")}>
               {typefaces
               ->Array.filter(
@@ -402,7 +403,9 @@ let make = () => {
                     ? React.null
                     : <a href={t.wikipediaPage} className="py-1">
                         <img
-                          className="border border-plain-900 " src={t.sampleImg} width={"100px"}
+                          className="border border-slate-400 shadow-sm rounded"
+                          src={t.sampleImg}
+                          width={"100px"}
                         />
                         <div className="text-xs font-bold">
                           {t.released->Int.toString->React.string}
@@ -417,9 +420,9 @@ let make = () => {
         </div>
       })
       ->React.array}
-      <div className="bg-plain-900 text-white text-xs p-6">
+      <div className="bg-slate-900 text-white text-xs p-6">
         <span> {"By "->React.string} </span>
-        <a className="text-green-400 font-bold" href={"https://github.com/thomaswright/typeline"}>
+        <a className="text-blue-400 font-bold" href={"https://github.com/thomaswright/typeline"}>
           {"Thomas Wright"->React.string}
         </a>
       </div>

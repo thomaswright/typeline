@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 html {
-  @apply bg-plain-900;
+  @apply bg-slate-100;
 }

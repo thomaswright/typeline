@@ -361,7 +361,7 @@ var allClassifications = [
 function timePeriodString(t) {
   switch (t) {
     case "T_2000" :
-        return "Post 2000";
+        return "2000s";
     case "T_1967_T1999" :
         return "1967 - 1999";
     case "T_1934_T1966" :
@@ -369,7 +369,7 @@ function timePeriodString(t) {
     case "T_1900_1933" :
         return "1900 - 1933";
     case "T_1800_1899" :
-        return "1800 - 1899";
+        return "1800s";
     case "T_Pre1800" :
         return "Pre 1800";
     
@@ -383,20 +383,17 @@ function App(props) {
                       children: [
                         JsxRuntime.jsx("div", {
                               children: "Typeline",
-                              className: "w-32 bg-plain-900 text-amber-500 underline flex flex-row items-center justify-center px-3 font-black text-xl italic"
+                              className: "w-32 bg-slate-900 text-amber-500 underline flex flex-row items-center justify-center px-3 font-black text-xl italic"
                             }),
                         allClassifications.map(function (classification, i) {
                               return JsxRuntime.jsx("a", {
                                           children: classificationString(classification),
-                                          className: [
-                                              "font-bold w-32 py-4 flex flex-col items-center text-white ",
-                                              "bg-plain-900"
-                                            ].join(" "),
+                                          className: ["font-bold w-32 py-4 flex flex-col items-center text-white bg-slate-900"].join(" "),
                                           href: classificationUrl(classification)
                                         });
                             })
                       ],
-                      className: "flex flex-row sticky top-0 bg-white border-b-2 border-plain-900"
+                      className: "flex flex-row sticky top-0 bg-white border-b-2 border-slate-900"
                     }),
                 JsxRuntime.jsxs("div", {
                       children: [
@@ -405,7 +402,10 @@ function App(props) {
                                           children: [
                                             JsxRuntime.jsx("div", {
                                                   children: timePeriodString(timePeriod),
-                                                  className: "w-32 font-bold px-3 py-2 bg-plain-800 text-white text-right"
+                                                  className: "w-32 font-black text-2xl px-3 py-2 bg-slate-100 text-slate-600 items-center justify-center flex flex-row",
+                                                  style: {
+                                                    writingMode: "sideways-lr"
+                                                  }
                                                 }),
                                             allClassifications.map(function (classification, i) {
                                                   return JsxRuntime.jsx("div", {
@@ -422,7 +422,7 @@ function App(props) {
                                                                       return JsxRuntime.jsxs("a", {
                                                                                   children: [
                                                                                     JsxRuntime.jsx("img", {
-                                                                                          className: "border border-plain-900 ",
+                                                                                          className: "border border-slate-400 shadow-sm rounded",
                                                                                           src: t.sampleImg,
                                                                                           width: "100px"
                                                                                         }),
@@ -436,10 +436,7 @@ function App(props) {
                                                                                 });
                                                                     }
                                                                   }),
-                                                              className: [
-                                                                  "w-32 flex flex-col items-center py-2",
-                                                                  i % 2 === 1 ? "bg-plain-100" : "bg-white"
-                                                                ].join(" ")
+                                                              className: ["w-32 flex flex-col items-center py-2 bg-white border-r"].join(" ")
                                                             });
                                                 })
                                           ],
@@ -453,14 +450,14 @@ function App(props) {
                                     }),
                                 JsxRuntime.jsx("a", {
                                       children: "Thomas Wright",
-                                      className: "text-green-400 font-bold",
+                                      className: "text-blue-400 font-bold",
                                       href: "https://github.com/thomaswright/typeline"
                                     })
                               ],
-                              className: "bg-plain-900 text-white text-xs p-6"
+                              className: "bg-slate-900 text-white text-xs p-6"
                             })
                       ],
-                      className: "flex flex-col divide-y-2 divide-plain-900 "
+                      className: "flex flex-col divide-y-2 divide-slate-300 "
                     })
               ],
               className: "w-fit"
